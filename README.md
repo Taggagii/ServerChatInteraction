@@ -1,1 +1,3 @@
-File which contains some helper functions to pass information around for generalized use in making games and chat apps etc
+## About
+
+Basic chat site that uses server base
