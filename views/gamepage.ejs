@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Page</title>
+</head>
+<body>
+    <div style = "text-align: center;">
+        <h1>Connected</h1>
+        <p>Starting off we will develop a chat, so let you pass information across while storing it. We will have that you send data and then recieve the same data. For example, you will send a message and only update on screen once you recieve the call with the same data. Like so</p>
+        <div id = "messageDiv" style = "margin-left: auto; margin-right: auto; display: block; border: black 1px solid; width: 70%; height: 150px; display: flex; flex-direction: column-reverse; overflow-y: scroll;">
+        <% for (var i = 0; i < data["messages"].length;  i++ ) {%> 
+            <br/><%= data["messages"][i] %>
+        <% } %>
+        </div>
+        <input id = "messageInput" type = "text" autofocus = "autofocus">
+        <input id = "sendButton" type = "button" value = "Send" onclick = "sendMessage()">
+    </div>
+</body>
+</html>
+
+<script src = "https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src = "/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+        var socket = io();
+
+        var messageDiv = document.getElementById("messageDiv");
+        var messageInput = document.getElementById("messageInput");
+
+        function updateChat(message)
+        {
+            messageDiv.innerHTML += `${message}<br>`;
+            return;
+        }
+        function sendMessage()
+        {
+            var message = messageInput.value;
+            messageInput.value = "";
+            
+            socket.emit("sendMessage", data = {"endpoint": document.location.pathname, 
+                                            "data": message,
+                                            "ID": <%= data["id"] %>,
+                                            "type": "MESSAGE"});
+        }
+
+        var connection = io.connect();
+
+        connection.on(`recieveMessage/${document.location.pathname}`, (value) => {
+            updateChat(value);
+        })
+</script>
+
+<!-- This chunk will make [ENTER] send the message instead of only clicking the button -->
+<script>
+    $("#messageInput").keyup((event) => {
+        console.log(event.keyCode)
+        if (event.keyCode === 13) // [ENTER] code
+        {
+            $("#sendButton").click();
+        }
+    });
+</script>

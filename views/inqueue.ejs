@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waiting...</title>
+</head>
+<body>
+    You're in the queue, please wait while we find you a buddy
+    <%= data["id"] %>
+</body>
+</html>
+
+<script src = "https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src = "/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>        
+        // Recieve
+        var connection = io.connect();
+        
+        // Remain in the queue until you recieve the message that you can join a game, at that point we will redirect you to the server with the other player
+        connection.on("inqueue_status/<%= data['id'] %>", (value) => {
+            console.log(value);
+            
+            document.location.href = value;
+        });
+</script>
+
+

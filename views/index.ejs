@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>something</title>
+    </head>
+    <body>
+        <p>Friend ID: <%= data["id"] %></p>
+        <div  style = "text-align: center;">
+            <h1>Main page</h1>
+            <p>Choose:</p>
+            <button>Play with friend</button>
+            <!-- <form method = "POST" action = "/gotoqueue"></form> -->
+            <form method = "POST" action = "/inqueue">
+                <input value = "play with random" type = "submit">
+            </form>
+            <!-- <button onclick = "window.location.href = '/inqueue'">Play with random</button> -->
+        </div>
+    </body>
+
+
+</html>
+
+<script src = "https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src = "/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+       var socket = io();
+
+       
+</script>
